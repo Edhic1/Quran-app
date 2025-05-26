@@ -34,6 +34,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+          signingConfig signingConfigs.release // Link release build to signingConfigs.release
         }
        debug {
             signingConfig signingConfigs.debug // Optional: Explicitly set debug signing (default)
