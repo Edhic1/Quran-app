@@ -17,13 +17,14 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    // Add signingConfigs block for release signing
+
+    // Define signingConfigs block
     signingConfigs {
-        release {
-            storeFile file(System.getenv("SIGNING_KEYSTORE") ?: "my-release-key.jks")
-            storePassword System.getenv("SIGNING_STORE_PASSWORD")
-            keyAlias System.getenv("SIGNING_KEY_ALIAS")
-            keyPassword System.getenv("SIGNING_KEY_PASSWORD")
+        register("release") {
+            storeFile = file(System.getenv("SIGNING_KEYSTORE") ?: "my-release-key.jks")
+            storePassword = System.getenv("SIGNING_STORE_PASSWORD")
+            keyAlias = System.getenv("SIGNING_KEY_ALIAS")
+            keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
         }
     }
 
@@ -34,26 +35,28 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-          signingConfig signingConfigs.release // Link release build to signingConfigs.release
+            signingConfig = signingConfigs.getByName("release")
         }
-       debug {
-            signingConfig signingConfigs.debug // Optional: Explicitly set debug signing (default)
+        debug {
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
     }
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
