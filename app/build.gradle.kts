@@ -35,6 +35,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+       debug {
+            signingConfig signingConfigs.debug // Optional: Explicitly set debug signing (default)
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
