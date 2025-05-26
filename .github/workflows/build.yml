@@ -40,14 +40,14 @@ jobs:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
         if [ -z "$KEYSTORE_BASE64" ]; then
-         echo "Error: KEYSTORE_BASE64 is empty or not set"
-         exit 1
+          echo "Error: KEYSTORE_BASE64 is empty or not set"
+          exit 1
         fi
         echo "$KEYSTORE_BASE64" | tr -d '\n\r' | base64 -d > my-release-key.jks
         if [ ! -s my-release-key.jks ]; then
           echo "Error: Failed to decode keystore or file is empty"
           exit 1
-         fi
+        fi
 
       # Run Tests Build
       - name: Run gradle tests
